@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:lista_de_tarefas/pages/home_page.dart';
+import 'package:window_manager/window_manager.dart';
 
 void main() async {
 
@@ -13,6 +14,19 @@ void main() async {
 
   // Abrir uma "Caixa"
   var box = await Hive.openBox("Minha Caixa");
+
+  await windowManager.ensureInitialized();
+
+  WindowOptions windowOptions = WindowOptions(
+  minimumSize: Size(400, 600),
+  size: Size(800, 600),
+  title: "Lista de Tarefas"
+  );
+
+  await windowManager.waitUntilReadyToShow(windowOptions, () async {
+    await windowManager.show();
+    await windowManager.focus();
+  });
 
   runApp(const MyApp());
 }

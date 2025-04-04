@@ -21,48 +21,57 @@ class ToDoTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 25.0,right: 25.0,top: 25.0),
-      child: Slidable(
-        endActionPane: ActionPane(
-          motion: StretchMotion(),
-          children: [
-            SlidableAction(
-              onPressed: deletarFuncao,
-              icon: Icons.delete,
-              backgroundColor: Colors.red.shade300,
-              borderRadius: BorderRadius.circular(12),
-            )
-          ]
+      padding: const EdgeInsets.symmetric(vertical: 10.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.yellow.shade200,
+          borderRadius: BorderRadius.circular(12)
         ),
-        child: Container(
-          padding: const EdgeInsets.only(left: 15.0,right: 25.0,top: 25.0, bottom: 24),
-          child: Row(
-            children: [
+        child: Padding(
+          padding: const EdgeInsets.only(top: 10.0, left: 25.0,right: 25.0, bottom: 10.0),
+          child: Slidable(
+            endActionPane: ActionPane(
+              motion: StretchMotion(),
+              children: [
+                SlidableAction(
+                  onPressed: deletarFuncao,
+                  icon: Icons.delete,
+                  backgroundColor: Colors.red.shade300,
+                  borderRadius: BorderRadius.circular(12),
+                )
+              ]
+            ),
+            child: Container(
+              padding: const EdgeInsets.only(left: 15.0,right: 25.0,top: 25.0, bottom: 24),
+              child: Row(
+                children: [
 
-              // Check Box
-              Checkbox(
-              value: tarefaFeita,
-              onChanged: onChanged,
-              activeColor: Colors.black,
-              ),
-
-              // Nome da Tarefa
-              Expanded(
-                child: Text(
-                  nomeDaTarefa,
-                  style: TextStyle(
-                    fontSize: 14,
-                    decoration: tarefaFeita ? TextDecoration.lineThrough : TextDecoration.none
+                  // Check Box
+                  Checkbox(
+                  value: tarefaFeita,
+                  onChanged: onChanged,
+                  activeColor: Colors.black,
                   ),
-                  softWrap: true,
-                  overflow: TextOverflow.visible,
-                ),
+
+                  // Nome da Tarefa
+                  Expanded(
+                    child: Text(
+                      nomeDaTarefa,
+                      style: TextStyle(
+                        fontSize: 14,
+                        decoration: tarefaFeita ? TextDecoration.lineThrough : TextDecoration.none
+                      ),
+                      softWrap: true,
+                      overflow: TextOverflow.visible,
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-          decoration: BoxDecoration(
-            color: Colors.yellow[500],
-            borderRadius: BorderRadius.circular(12)
+              decoration: BoxDecoration(
+                color: Colors.yellow[500],
+                borderRadius: BorderRadius.circular(12)
+              ),
+            ),
           ),
         ),
       ),

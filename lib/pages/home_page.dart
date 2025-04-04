@@ -3,6 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:lista_de_tarefas/data/database.dart';
 import 'package:lista_de_tarefas/util/dialog_box.dart';
 import 'package:lista_de_tarefas/util/todo_tile.dart';
+import 'package:lista_de_tarefas/util/trash_hold.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -19,7 +20,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-
     // Se é a primeira vez que o Aplicativo é aberto, criar Data padrão
 
     if (_myBox.get("TAREFASLISTA") == null) {
@@ -31,8 +31,10 @@ class _HomePageState extends State<HomePage> {
       db.carregarDados();
     }
 
-    super.initState();
+	super.initState();
   }
+
+
 
   // Controlador de Texto
   final _controller = TextEditingController();
@@ -81,10 +83,67 @@ class _HomePageState extends State<HomePage> {
   // Deletar Tarefa
   void deletarTarefa(int index) {
     setState(() {
+      db.TarefasLixeira.add(db.TarefasLista[index]);
       db.TarefasLista.removeAt(index);
     });
     db.atualizarDataBase();
   }
+
+  void recuperarTarefa(int index) {
+    setState(() {
+      db.TarefasLista.add(db.TarefasLixeira[index]);
+      db.TarefasLixeira.removeAt(index);
+    });
+    db.atualizarDataBase();
+
+    if (db.TarefasLixeira.length < 1)
+      Navigator.of(context).pop();
+  }
+
+  void abrirLixeira() {
+  showDialog(
+    context: context,
+    builder: (context) {
+      return StatefulBuilder(
+        builder: (context, setState) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                height: 450,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: db.TarefasLixeira.length,
+                      itemBuilder: (context, index) {
+                        return TrashHold(
+                          recuperarTarefa: (context) {
+                            setState(() {
+                              recuperarTarefa(index); // Atualiza o estado local
+                            });
+                          },
+                          itemLixeira: db.TarefasLixeira[index][0],
+                        );
+                      },
+                    ),
+                  ),
+
+              const SizedBox(
+                height: 50
+                ),
+
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text("Fechar")
+              ),
+            ],
+          );
+        },
+      );
+    },
+  );
+}
 
   @override
   Widget build(BuildContext context) {
@@ -100,16 +159,38 @@ class _HomePageState extends State<HomePage> {
         ),
         centerTitle: true,
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.amber,
-        shape: CircleBorder(),
-        onPressed: criarNovaTarefa,
-        child: Icon(
-          Icons.add,
-          color: Colors.black,
-        ),
+      floatingActionButton: Stack(
+		    children: [
+			    Positioned(
+            right: 18,
+            bottom: 80,
+		        child: FloatingActionButton(
+              mini: true,
+		          backgroundColor: Colors.amber,
+		          shape: CircleBorder(),
+		          onPressed: abrirLixeira,
+		          child: Icon(
+			          Icons.delete,
+			          color: Colors.black,
+		          ),
+		        )
 
-      ),
+		      ),
+			    Positioned(
+		        right: 10,
+            bottom: 10,
+            child: FloatingActionButton(
+              backgroundColor: Colors.amber,
+              shape: CircleBorder(),
+              onPressed: criarNovaTarefa,
+              child: Icon(
+                Icons.add,
+                color: Colors.black,
+		          ),
+		        )
+		      ),
+		    ],
+	    ),
       body: ListView.builder(
         itemCount: db.TarefasLista.length,
         itemBuilder: (context, index) {
