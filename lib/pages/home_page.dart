@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:listadetarefas/data/database.dart';
 import 'package:listadetarefas/util/dialog_box.dart';
+import 'package:listadetarefas/util/edit_task_box.dart';
+import 'package:listadetarefas/util/meu_botao.dart';
 import 'package:listadetarefas/util/todo_tile.dart';
 import 'package:listadetarefas/util/trash_hold.dart';
 
@@ -67,7 +69,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   // Clicou no Botão de Adicionar Tarefa
-  void criarNovaTarefa () {
+  void criarNovaTarefaBox () {
     showDialog(
       context: context,
       builder: (context) {
@@ -79,6 +81,38 @@ class _HomePageState extends State<HomePage> {
       },
     );
   }
+
+  void editarTarefa (int index) {
+
+    if (_controller.text.isEmpty) {
+
+    } else {
+
+      setState(() {
+      db.TarefasLista[index][0] = _controller.text;
+      _controller.clear();
+    });
+
+    Navigator.of(context).pop();
+    db.atualizarDataBase();
+    }
+
+  }
+
+  void editarTarefaBox (int index) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return EditTaskBox(
+          controller: _controller,
+          onSave: () => editarTarefa(index),
+          onCanceled: () => Navigator.of(context).pop(),
+          tarefaAntiga: db.TarefasLista[index][0],
+        );
+      },
+    );
+  }
+
 
   // Deletar Tarefa
   void deletarTarefa(int index) {
@@ -106,12 +140,18 @@ class _HomePageState extends State<HomePage> {
     builder: (context) {
       return StatefulBuilder(
         builder: (context, setState) {
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(
-                height: 450,
-                    child: ListView.builder(
+          return AlertDialog(
+            backgroundColor: const Color.fromARGB(255, 248, 230, 156),
+            title: Center(child: const Text(
+              style: TextStyle(
+                fontWeight: FontWeight.bold
+              ),
+              "LIXEIRA")
+            ),
+            content: SizedBox(
+
+              width: double.maxFinite,
+              child: ListView.builder(
                       shrinkWrap: true,
                       itemCount: db.TarefasLixeira.length,
                       itemBuilder: (context, index) {
@@ -127,23 +167,37 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
 
-              const SizedBox(
-                height: 50
-                ),
+				actions: [
+                Row(
+				  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+					MeuBotao(
+						text: "Limpar Lixeira",
+						onPressed: () => setState(() {
+							limparLixeira();
+						})
+					),
 
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text("Fechar")
-              ),
-            ],
+					MeuBotao(
+						text: "Fechar",
+            			onPressed: () => Navigator.of(context).pop()
+					),
+                  ],
+                ),
+			    ],
           );
         },
       );
     },
   );
 }
+
+  void limparLixeira() {
+	setState(() {
+	db.TarefasLixeira.clear();
+	db.atualizarDataBase();
+	});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -159,7 +213,7 @@ class _HomePageState extends State<HomePage> {
         ),
         centerTitle: true,
       ),
-      floatingActionButton: Stack(
+        floatingActionButton: Stack(
 		    children: [
 			    Positioned(
             right: 17,
@@ -177,21 +231,21 @@ class _HomePageState extends State<HomePage> {
 
 		      ),
 			    Positioned(
-		        right: 10,
-            bottom: 10,
-            child: FloatingActionButton(
-              backgroundColor: Colors.amber,
-              shape: CircleBorder(),
-              onPressed: criarNovaTarefa,
-              child: Icon(
-                Icons.add,
-                color: Colors.black,
-		          ),
-		        )
-		      ),
+					right: 10,
+					bottom: 10,
+					child: FloatingActionButton(
+						backgroundColor: Colors.amber,
+						shape: CircleBorder(),
+						onPressed: criarNovaTarefaBox,
+						child: Icon(
+							Icons.add,
+							color: Colors.black,
+		         		),
+		        	)
+		      	),
 		    ],
 	    ),
-      body: ListView.builder(
+      	body: ListView.builder(
         itemCount: db.TarefasLista.length,
         itemBuilder: (context, index) {
           return ToDoTile(
@@ -199,6 +253,7 @@ class _HomePageState extends State<HomePage> {
           tarefaFeita: db.TarefasLista[index][1],
           onChanged: (value) => checkBoxChanged(value,index),
           deletarFuncao: (context) => deletarTarefa(index),
+          editarFuncao: (context) => editarTarefaBox(index),
           );
         }
       )

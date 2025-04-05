@@ -3,13 +3,15 @@
 import 'package:flutter/material.dart';
 import 'package:listadetarefas/util/meu_botao.dart';
 
-class DialogBox extends StatelessWidget {
+class EditTaskBox extends StatelessWidget {
   final controller;
+  final String tarefaAntiga;
   VoidCallback onSave;
   VoidCallback onCanceled;
 
-  DialogBox({
+  EditTaskBox({
     super.key,
+    required this.tarefaAntiga,
     required this.controller,
     required this.onSave,
     required this.onCanceled
@@ -20,7 +22,7 @@ class DialogBox extends StatelessWidget {
     return AlertDialog(
       title: Center(
         child: Text(
-          "Criar Tarefa",
+          "Editar Tarefa",
           style: TextStyle(
             fontWeight: FontWeight.bold
           ),
@@ -29,7 +31,7 @@ class DialogBox extends StatelessWidget {
 
       backgroundColor: Colors.yellow[300],
       content: Container(
-        height: 120,
+        height: 140,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -38,7 +40,7 @@ class DialogBox extends StatelessWidget {
               controller: controller,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                hintText: "Nova Tarefa"
+                hintText: tarefaAntiga
               ),
 
             ),
