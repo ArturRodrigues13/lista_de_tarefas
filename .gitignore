@@ -11,8 +11,6 @@
 .svn/
 .swiftpm/
 migrate_working_dir/
-instaladores/
-downloads/
 
 # IntelliJ related
 *.iml
@@ -23,6 +21,7 @@ downloads/
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
 # is commented out by default.
+#.vscode/
 
 .vscode/
 android/
@@ -36,7 +35,6 @@ windows/
 pubspec.lock
 analysis_options.yaml
 pubspec.yaml
-
 
 # Flutter/Dart/Pub related
 **/doc/api/

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:lista_de_tarefas/data/database.dart';
-import 'package:lista_de_tarefas/util/dialog_box.dart';
-import 'package:lista_de_tarefas/util/todo_tile.dart';
-import 'package:lista_de_tarefas/util/trash_hold.dart';
+import 'package:listadetarefas/data/database.dart';
+import 'package:listadetarefas/util/dialog_box.dart';
+import 'package:listadetarefas/util/todo_tile.dart';
+import 'package:listadetarefas/util/trash_hold.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -162,7 +162,7 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: Stack(
 		    children: [
 			    Positioned(
-            right: 18,
+            right: 17,
             bottom: 80,
 		        child: FloatingActionButton(
               mini: true,

@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:lista_de_tarefas/util/meu_botao.dart';
+import 'package:listadetarefas/util/meu_botao.dart';
 
 class DialogBox extends StatelessWidget {
   final controller;
