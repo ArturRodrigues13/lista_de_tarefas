@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:listadetarefas/data/database.dart';
+import 'package:listadetarefas/util/description_box.dart';
 import 'package:listadetarefas/util/dialog_box.dart';
 import 'package:listadetarefas/util/edit_task_box.dart';
 import 'package:listadetarefas/util/meu_botao.dart';
@@ -38,14 +39,16 @@ class _HomePageState extends State<HomePage> {
 
 
 
-  // Controlador de Texto
+  // Controlador do Titulo da Tarefa
   final _controller = TextEditingController();
+
+  final _descricaoController = TextEditingController();
 
 
   // Clicou na CheckBox
   void checkBoxChanged(bool? value, index) {
     setState(() {
-      db.TarefasLista[index][1] = !db.TarefasLista[index][1];
+      db.TarefasLista[index][2] = !db.TarefasLista[index][2];
     });
     db.atualizarDataBase();
   }
@@ -58,14 +61,32 @@ class _HomePageState extends State<HomePage> {
     } else {
 
       setState(() {
-      db.TarefasLista.add([_controller.text,false]);
+      db.TarefasLista.add([_controller.text,_descricaoController.text,false]);
       _controller.clear();
+      _descricaoController.clear();
 
     });
 
     Navigator.of(context).pop();
     db.atualizarDataBase();
     }
+  }
+
+  void exibirDescricao (int index) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return DescriptionBox(
+          nomeDaTarefa: db.TarefasLista[index][0],
+          descricaoDaTarefa: db.TarefasLista[index][1],
+          onCanceled: () {
+            Navigator.of(context).pop();
+            _controller.text = "";
+            _descricaoController.text = "";
+          },
+        );
+      },
+    );
   }
 
   // Clicou no Botão de Adicionar Tarefa
@@ -75,8 +96,13 @@ class _HomePageState extends State<HomePage> {
       builder: (context) {
         return DialogBox(
           controller: _controller,
+          descricaoController: _descricaoController,
           onSave: salvarNovaTarefa,
-          onCanceled: () => Navigator.of(context).pop(),
+          onCanceled: () {
+            Navigator.of(context).pop();
+            _controller.text = "";
+            _descricaoController.text = "";
+          },
         );
       },
     );
@@ -90,7 +116,9 @@ class _HomePageState extends State<HomePage> {
 
       setState(() {
       db.TarefasLista[index][0] = _controller.text;
+      db.TarefasLista[index][1] = _descricaoController.text;
       _controller.clear();
+      _descricaoController.clear();
     });
 
     Navigator.of(context).pop();
@@ -100,13 +128,20 @@ class _HomePageState extends State<HomePage> {
   }
 
   void editarTarefaBox (int index) {
+    _controller.text = db.TarefasLista[index][0];
+    _descricaoController.text = db.TarefasLista[index][1];
     showDialog(
       context: context,
       builder: (context) {
         return EditTaskBox(
           controller: _controller,
+          descricaoController: _descricaoController,
           onSave: () => editarTarefa(index),
-          onCanceled: () => Navigator.of(context).pop(),
+          onCanceled: () {
+            Navigator.of(context).pop();
+            _controller.clear();
+            _descricaoController.clear();
+          },
           tarefaAntiga: db.TarefasLista[index][0],
         );
       },
@@ -130,8 +165,9 @@ class _HomePageState extends State<HomePage> {
     });
     db.atualizarDataBase();
 
-    if (db.TarefasLixeira.length < 1)
-      Navigator.of(context).pop();
+    if (db.TarefasLixeira.isEmpty){
+       Navigator.of(context).pop();
+    }
   }
 
   void abrirLixeira() {
@@ -149,7 +185,6 @@ class _HomePageState extends State<HomePage> {
               "LIXEIRA")
             ),
             content: SizedBox(
-
               width: double.maxFinite,
               child: ListView.builder(
                       shrinkWrap: true,
@@ -250,10 +285,12 @@ class _HomePageState extends State<HomePage> {
         itemBuilder: (context, index) {
           return ToDoTile(
           nomeDaTarefa: db.TarefasLista[index][0],
-          tarefaFeita: db.TarefasLista[index][1],
+          descricaoDaTarefa: db.TarefasLista[index][1],
+          tarefaFeita: db.TarefasLista[index][2],
           onChanged: (value) => checkBoxChanged(value,index),
           deletarFuncao: (context) => deletarTarefa(index),
           editarFuncao: (context) => editarTarefaBox(index),
+          exibirDescricao: (context) => exibirDescricao(index),
           );
         }
       )

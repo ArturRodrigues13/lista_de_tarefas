@@ -8,7 +8,8 @@ Future<void> initDesktop() async {
     await windowManager.ensureInitialized();
      const windowOptions = WindowOptions(
       minimumSize: Size(400, 600),
-      size: Size(800, 600),
+      maximumSize: Size(400, 600),
+      size: Size(400, 600),
       title: "Lista de Tarefas",
     );
 

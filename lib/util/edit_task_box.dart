@@ -5,6 +5,7 @@ import 'package:listadetarefas/util/meu_botao.dart';
 
 class EditTaskBox extends StatelessWidget {
   final controller;
+  final descricaoController;
   final String tarefaAntiga;
   VoidCallback onSave;
   VoidCallback onCanceled;
@@ -13,6 +14,7 @@ class EditTaskBox extends StatelessWidget {
     super.key,
     required this.tarefaAntiga,
     required this.controller,
+    required this.descricaoController,
     required this.onSave,
     required this.onCanceled
   });
@@ -31,9 +33,9 @@ class EditTaskBox extends StatelessWidget {
 
       backgroundColor: Colors.yellow[300],
       content: Container(
-        height: 140,
+        width: 275,
+        height: double.maxFinite,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             // Pegar Input do Usuário
             TextField(
@@ -42,8 +44,22 @@ class EditTaskBox extends StatelessWidget {
                 border: OutlineInputBorder(),
                 hintText: tarefaAntiga
               ),
-
             ),
+
+            const SizedBox(height: 24),
+
+            Flexible(
+              child: TextField(
+                controller: descricaoController,
+                maxLines: null,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: "Atualizar Descrição"
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 24),
 
             // Botões de Salvar e Cancelar
             Row(

@@ -16,12 +16,15 @@ class ToDoDataBase {
   // Chamar essa função se for a primeira vez abrindo o Aplicativo
   void criarDataInicial () {
     TarefasLista = [
-      ["Para adicionar tarefas, clique no +",false],
-      ["Para deletar tarefas, me arraste para o lado",false]
+      ["Para adicionar tarefas, clique no +","Tá procurando o que?",false],
+      ["Para deletar tarefas, me arraste para o lado","Farmácias são a máfia brasileira",false],
+      ["Para ver a descrição de uma tarefa, clique nela","DESCRIÇÃO SUPER INCRÍVEL!!!",false],
+      ["Para abrir a lixeira, clique no botão acima do +","Acho que você apertou no lugar errado",false]
     ];
 
     TarefasLixeira = [
-      ["Para tirar uma tarefa da lixeira, me arraste para o lado",false]
+      ["Para me retirar da lixeira, clique neste botão =>","Kendrick > Abismo > Drake",false],
+      ["Para limpar a lixeira, bom, tem o botão ali né","Mensagem super secreta uauuuuu",false]
     ];
   }
 

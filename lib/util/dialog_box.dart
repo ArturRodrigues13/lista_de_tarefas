@@ -5,6 +5,7 @@ import 'package:listadetarefas/util/meu_botao.dart';
 
 class DialogBox extends StatelessWidget {
   final controller;
+  final descricaoController;
   VoidCallback onSave;
   VoidCallback onCanceled;
 
@@ -12,7 +13,8 @@ class DialogBox extends StatelessWidget {
     super.key,
     required this.controller,
     required this.onSave,
-    required this.onCanceled
+    required this.onCanceled,
+    required this.descricaoController
   });
 
   @override
@@ -29,19 +31,34 @@ class DialogBox extends StatelessWidget {
 
       backgroundColor: Colors.yellow[300],
       content: Container(
-        height: 120,
+        width: 275,
+        height: double.maxFinite,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             // Pegar Input do Usuário
             TextField(
+              maxLength: 60,
               controller: controller,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                hintText: "Nova Tarefa"
+                hintText: "Nome da Tarefa"
               ),
-
             ),
+
+            const SizedBox(height: 24),
+
+            Flexible(
+              child: TextField(
+                controller: descricaoController,
+                maxLines: null,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: "Descrição da Tarefa"
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 24),
 
             // Botões de Salvar e Cancelar
             Row(

@@ -11,9 +11,9 @@ class TrashHold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 15.0,right: 15.0,top: 25.0, bottom: 25.0),
+      padding: const EdgeInsets.only(left: 15.0,right: 15.0,top: 7.5,bottom: 7.5),
       child: Container(
-          padding: const EdgeInsets.only(left: 15.0,right: 15.0,top: 25.0, bottom: 24),
+          padding: const EdgeInsets.only(left: 15.0,right: 15.0,top: 15.0, bottom: 15),
           decoration: BoxDecoration(
             color: Colors.yellow[500],
             borderRadius: BorderRadius.circular(12)
@@ -42,7 +42,7 @@ class TrashHold extends StatelessWidget {
                 backgroundColor: const Color.fromARGB(0, 0, 0, 0),
                 onPressed: () => recuperarTarefa?.call(context),
                 child: Icon(
-                  Icons.arrow_circle_up,
+                  Icons.restore_from_trash,
                   color: Colors.black,
                   ),
                 ),
