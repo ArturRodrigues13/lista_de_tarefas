@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:listadetarefas/util/error_message.dart';
 import 'package:listadetarefas/util/meu_botao.dart';
 
 class DialogBox extends StatelessWidget {
@@ -41,7 +42,7 @@ class DialogBox extends StatelessWidget {
               controller: controller,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                hintText: "Nome da Tarefa"
+                hintText: "Nome da Tarefa",
               ),
             ),
 
@@ -65,7 +66,17 @@ class DialogBox extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // Salvar
-                MeuBotao(text: "Salvar", onPressed: onSave),
+                MeuBotao(
+                  text: "Salvar",
+                  onPressed: () {
+                    if (controller.text.isEmpty) {
+                      showErrorDialog(context, "A Tarefa Precisa de um Nome!");
+                    }
+                    else {
+                      onSave();
+                    }
+                  }
+                ),
 
                 const SizedBox(width: 64), // Separação
 
