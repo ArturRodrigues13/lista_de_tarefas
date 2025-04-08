@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:listadetarefas/util/error_message.dart';
 import 'package:listadetarefas/util/meu_botao.dart';
+import 'package:listadetarefas/util/scale_button.dart';
 
 class DialogBox extends StatelessWidget {
   final controller;
@@ -66,22 +67,27 @@ class DialogBox extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // Salvar
-                MeuBotao(
-                  text: "Salvar",
-                  onPressed: () {
-                    if (controller.text.isEmpty) {
-                      showErrorDialog(context, "A Tarefa Precisa de um Nome!");
+                ScaleButton(
+                  child: MeuBotao(
+                    text: "Salvar",
+                    onPressed: () {
+                      if (controller.text.isEmpty) {
+                        showErrorDialog(context, "A Tarefa Precisa de um Nome!");
+                      }
+                      else {
+                        onSave();
+                      }
                     }
-                    else {
-                      onSave();
-                    }
-                  }
+                  ),
                 ),
 
                 const SizedBox(width: 64), // Separação
 
                 // Cancelar
-                MeuBotao(text: "Cancelar", onPressed: onCanceled)
+                ScaleButton(
+                  child: MeuBotao(
+                    text: "Cancelar",
+                    onPressed: onCanceled))
               ],
             )
           ],

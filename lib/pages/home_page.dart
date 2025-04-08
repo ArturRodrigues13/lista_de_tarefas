@@ -5,6 +5,7 @@ import 'package:listadetarefas/util/description_box.dart';
 import 'package:listadetarefas/util/dialog_box.dart';
 import 'package:listadetarefas/util/edit_task_box.dart';
 import 'package:listadetarefas/util/meu_botao.dart';
+import 'package:listadetarefas/util/scale_button.dart';
 import 'package:listadetarefas/util/todo_tile.dart';
 import 'package:listadetarefas/util/trash_hold.dart';
 
@@ -206,17 +207,21 @@ class _HomePageState extends State<HomePage> {
                 Row(
 				  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-					MeuBotao(
-						text: "Limpar Lixeira",
-						onPressed: () => setState(() {
-							limparLixeira();
-						})
-					),
+					ScaleButton(
+                      child: MeuBotao(
+                        text: "Limpar Lixeira",
+                        onPressed: () => setState(() {
+                          limparLixeira();
+                        })
+                      ),
+                    ),
 
-					MeuBotao(
-						text: "Fechar",
-            			onPressed: () => Navigator.of(context).pop()
-					),
+					ScaleButton(
+                      child: MeuBotao(
+                        text: "Fechar",
+                                        onPressed: () => Navigator.of(context).pop()
+                      ),
+                    ),
                   ],
                 ),
 			    ],
