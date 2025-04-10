@@ -87,7 +87,9 @@ class DialogBox extends StatelessWidget {
                 Scale(
                   child: MeuBotao(
                     text: "Cancelar",
-                    onPressed: onCanceled))
+                    onPressed: onCanceled
+                  )
+                )
               ],
             )
           ],

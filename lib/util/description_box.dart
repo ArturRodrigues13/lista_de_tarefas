@@ -37,11 +37,12 @@ class DescriptionBox extends StatelessWidget {
             Expanded(
               child: Container(
                 alignment: Alignment.topLeft,
-                  child: Text(
-                    descricaoDaTarefa
-                  ),
+                child: Text(
+                  descricaoDaTarefa
                 ),
               ),
+            ),
+
             MeuBotao(
               text: "Fechar",
               onPressed: onCanceled

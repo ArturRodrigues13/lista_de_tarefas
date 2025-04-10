@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:listadetarefas/util/meu_botao.dart';
+import 'package:listadetarefas/util/scale.dart';
 
 class EditTaskBox extends StatelessWidget {
   final controller;
@@ -66,12 +67,12 @@ class EditTaskBox extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // Salvar
-                MeuBotao(text: "Salvar", onPressed: onSave),
+                Scale(child: MeuBotao(text: "Salvar", onPressed: onSave)),
 
                 const SizedBox(width: 64), // Separação
 
                 // Cancelar
-                MeuBotao(text: "Cancelar", onPressed: onCanceled)
+                Scale(child: MeuBotao(text: "Cancelar", onPressed: onCanceled))
               ],
             )
           ],

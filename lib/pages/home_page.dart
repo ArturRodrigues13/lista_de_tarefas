@@ -179,52 +179,54 @@ class _HomePageState extends State<HomePage> {
         builder: (context, setState) {
           return AlertDialog(
             backgroundColor: const Color.fromARGB(255, 248, 230, 156),
-            title: Center(child: const Text(
-              style: TextStyle(
-                fontWeight: FontWeight.bold
-              ),
-              "LIXEIRA")
+            title: Center(
+              child: const Text(
+                style: TextStyle(
+                  fontWeight: FontWeight.bold
+                ),
+              "LIXEIRA"
+              )
             ),
             content: SizedBox(
               width: double.maxFinite,
               child: ListView.builder(
-				shrinkWrap: true,
-				itemCount: db.TarefasLixeira.length,
-				itemBuilder: (context, index) {
-				  return TrashHold(
-					recuperarTarefa: (context) {
-					  setState(() {
-						recuperarTarefa(index); // Atualiza o estado local
-					  });
-					},
-					  itemLixeira: db.TarefasLixeira[index][0],
-				  );
-				},
-			  ),
-			),
+                shrinkWrap: true,
+                itemCount: db.TarefasLixeira.length,
+                itemBuilder: (context, index) {
+                  return TrashHold(
+                    recuperarTarefa: (context) {
+                    setState(() {
+                      recuperarTarefa(index); // Atualiza o estado local
+                    });
+                    },
+                    itemLixeira: db.TarefasLixeira[index][0],
+                  );
+				        },
+			        ),
+			      ),
 
-				actions: [
-                Row(
-				  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-					Scale(
-                      child: MeuBotao(
-                        text: "Limpar Lixeira",
-                        onPressed: () => setState(() {
-                          limparLixeira();
-                        })
-                      ),
+				    actions: [
+              Row(
+				        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+					        Scale(
+                    child: MeuBotao(
+                    text: "Limpar Lixeira",
+                    onPressed: () => setState(() {
+                      limparLixeira();
+                    })
                     ),
+                  ),
 
-					Scale(
-                      child: MeuBotao(
-                        text: "Fechar",
-                                        onPressed: () => Navigator.of(context).pop()
-                      ),
+				          Scale(
+                    child: MeuBotao(
+                    text: "Fechar",
+                    onPressed: () => Navigator.of(context).pop()
                     ),
-                  ],
-                ),
-			    ],
+                  ),
+                ],
+              ),
+			      ],
           );
         },
       );
@@ -255,89 +257,87 @@ class _HomePageState extends State<HomePage> {
       ),
       drawer: Drawer(
         backgroundColor: Colors.white,
-          child: Column(
-            children: [
-              DrawerHeader(
-                child: Icon(
-                  Icons.edit,
-                  size: 48
-                )
-              ),
+        child: Column(
+          children: [
+            DrawerHeader(
+              child: Icon(
+                Icons.edit,
+                size: 48
+              )
+            ),
 
-              ListTile(
-                leading: Icon(Icons.home),
-                title: Text("H O M E"),
-				onTap: () {
+            ListTile(
+              leading: Icon(Icons.home),
+              title: Text("H O M E"),
+              onTap: () {
+                Navigator.pop(context);
+              }
+            ),
 
-                  Navigator.pop(context);
-
-                }
-              ),
-			  ListTile(
-				leading: Icon(Icons.settings),
-                title: Text("S E T T I N G S"),
-				onTap: () {
-
-                  Navigator.pop(context);
-                  Navigator.pushNamed(context,"/settings");
-
-				}
-			  )
-            ],
-
-        )
-        ,
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: Text("S E T T I N G S"),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context,"/settings");
+              }
+            )
+          ],
+        ),
       ),
 
-        floatingActionButton: Stack(
+      floatingActionButton: Stack(
 		    children: [
 			    Positioned(
             right: 17,
             bottom: 80,
 		        child: Scale(
-								  child: FloatingActionButton(
-												heroTag: null,
-												mini: true,
-									backgroundColor: Colors.amber,
-									shape: CircleBorder(),
-									onPressed: abrirLixeira,
-									child: Icon(
-													  Icons.delete,
-													  color: Colors.black,
-									),
-								  ),
-								)
+							child: FloatingActionButton(
+                heroTag: null,
+                mini: true,
+                backgroundColor: Colors.amber,
+                shape: CircleBorder(),
+                onPressed: abrirLixeira,
+                child: Icon(
+                  Icons.delete,
+                  color: Colors.black,
+                ),
+						  ),
+						)
+          ),
 
-		      ),
 			    Positioned(
-					right: 10,
-					bottom: 10,
-					child: Scale(
-										  child: FloatingActionButton(
-											heroTag: null,
-											backgroundColor: Colors.amber,
-											shape: CircleBorder(),
-											onPressed: criarNovaTarefaBox,
-											child: Icon(
-												Icons.add,
-												color: Colors.black,
-																),
-															),
-										)
-		      	),
+            right: 10,
+            bottom: 10,
+            child: Scale(
+							child: FloatingActionButton(
+								heroTag: null,
+								backgroundColor: Colors.amber,
+								shape: CircleBorder(),
+								onPressed: criarNovaTarefaBox,
+								child: Icon(
+									Icons.add,
+									color: Colors.black,
+								),
+							),
+						)
+		      ),
 		    ],
 	    ),
-      	body: ListView.builder(
+
+      body: ListView.builder(
         itemCount: db.TarefasLista.length,
         itemBuilder: (context, index) {
           return ToDoTile(
-          nomeDaTarefa: db.TarefasLista[index][0],
-          descricaoDaTarefa: db.TarefasLista[index][1],
-          tarefaFeita: db.TarefasLista[index][2],
-          onChanged: (value) => checkBoxChanged(value,index),
-          deletarFuncao: (context) => deletarTarefa(index),
-          editarFuncao: (context) => editarTarefaBox(index),
-          exibirDescricao: (context) => exibirDescricao(index),
+
+            nomeDaTarefa: db.TarefasLista[index][0],
+            descricaoDaTarefa: db.TarefasLista[index][1],
+            tarefaFeita: db.TarefasLista[index][2],
+            onChanged: (value) => checkBoxChanged(value,index),
+            deletarFuncao: (context) => deletarTarefa(index),
+            editarFuncao: (context) => editarTarefaBox(index),
+            exibirDescricao: (context) => exibirDescricao(index),
+
           );
         }
       )
