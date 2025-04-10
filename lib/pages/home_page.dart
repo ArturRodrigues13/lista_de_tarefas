@@ -5,7 +5,7 @@ import 'package:listadetarefas/util/description_box.dart';
 import 'package:listadetarefas/util/dialog_box.dart';
 import 'package:listadetarefas/util/edit_task_box.dart';
 import 'package:listadetarefas/util/meu_botao.dart';
-import 'package:listadetarefas/util/scale_button.dart';
+import 'package:listadetarefas/util/scale.dart';
 import 'package:listadetarefas/util/todo_tile.dart';
 import 'package:listadetarefas/util/trash_hold.dart';
 
@@ -188,26 +188,26 @@ class _HomePageState extends State<HomePage> {
             content: SizedBox(
               width: double.maxFinite,
               child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: db.TarefasLixeira.length,
-                      itemBuilder: (context, index) {
-                        return TrashHold(
-                          recuperarTarefa: (context) {
-                            setState(() {
-                              recuperarTarefa(index); // Atualiza o estado local
-                            });
-                          },
-                          itemLixeira: db.TarefasLixeira[index][0],
-                        );
-                      },
-                    ),
-                  ),
+				shrinkWrap: true,
+				itemCount: db.TarefasLixeira.length,
+				itemBuilder: (context, index) {
+				  return TrashHold(
+					recuperarTarefa: (context) {
+					  setState(() {
+						recuperarTarefa(index); // Atualiza o estado local
+					  });
+					},
+					  itemLixeira: db.TarefasLixeira[index][0],
+				  );
+				},
+			  ),
+			),
 
 				actions: [
                 Row(
 				  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-					ScaleButton(
+					Scale(
                       child: MeuBotao(
                         text: "Limpar Lixeira",
                         onPressed: () => setState(() {
@@ -216,7 +216,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
 
-					ScaleButton(
+					Scale(
                       child: MeuBotao(
                         text: "Fechar",
                                         onPressed: () => Navigator.of(context).pop()
@@ -253,35 +253,77 @@ class _HomePageState extends State<HomePage> {
         ),
         centerTitle: true,
       ),
+      drawer: Drawer(
+        backgroundColor: Colors.white,
+          child: Column(
+            children: [
+              DrawerHeader(
+                child: Icon(
+                  Icons.edit,
+                  size: 48
+                )
+              ),
+
+              ListTile(
+                leading: Icon(Icons.home),
+                title: Text("H O M E"),
+				onTap: () {
+
+                  Navigator.pop(context);
+
+                }
+              ),
+			  ListTile(
+				leading: Icon(Icons.settings),
+                title: Text("S E T T I N G S"),
+				onTap: () {
+
+                  Navigator.pop(context);
+                  Navigator.pushNamed(context,"/settings");
+
+				}
+			  )
+            ],
+
+        )
+        ,
+      ),
+
         floatingActionButton: Stack(
 		    children: [
 			    Positioned(
             right: 17,
             bottom: 80,
-		        child: FloatingActionButton(
-              mini: true,
-		          backgroundColor: Colors.amber,
-		          shape: CircleBorder(),
-		          onPressed: abrirLixeira,
-		          child: Icon(
-			          Icons.delete,
-			          color: Colors.black,
-		          ),
-		        )
+		        child: Scale(
+								  child: FloatingActionButton(
+												heroTag: null,
+												mini: true,
+									backgroundColor: Colors.amber,
+									shape: CircleBorder(),
+									onPressed: abrirLixeira,
+									child: Icon(
+													  Icons.delete,
+													  color: Colors.black,
+									),
+								  ),
+								)
 
 		      ),
 			    Positioned(
 					right: 10,
 					bottom: 10,
-					child: FloatingActionButton(
-						backgroundColor: Colors.amber,
-						shape: CircleBorder(),
-						onPressed: criarNovaTarefaBox,
-						child: Icon(
-							Icons.add,
-							color: Colors.black,
-		         		),
-		        	)
+					child: Scale(
+										  child: FloatingActionButton(
+											heroTag: null,
+											backgroundColor: Colors.amber,
+											shape: CircleBorder(),
+											onPressed: criarNovaTarefaBox,
+											child: Icon(
+												Icons.add,
+												color: Colors.black,
+																),
+															),
+										)
 		      	),
 		    ],
 	    ),

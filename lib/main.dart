@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:listadetarefas/pages/settings.dart';
 import 'package:listadetarefas/pages/home_page.dart';
 import 'package:listadetarefas/util/desktop_init.dart';
 
@@ -30,6 +31,10 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.amber
       ),
       home: HomePage(),
+      routes: {
+        '/homepage': (context) => HomePage(),
+        '/settings': (context) => Settings(),
+      },
     );
   }
 }

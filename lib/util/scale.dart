@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class ScaleButton extends StatefulWidget {
+class Scale extends StatefulWidget {
   final Widget child;
   final VoidCallback? onPressed;
   final double scale;
 
-  const ScaleButton({
+  const Scale({
     super.key,
     required this.child,
     this.onPressed,
@@ -13,10 +13,10 @@ class ScaleButton extends StatefulWidget {
     });
 
   @override
-  State<ScaleButton> createState() => _ScaleButtonState();
+  State<Scale> createState() => _ScaleButtonState();
 }
 
-class _ScaleButtonState extends State<ScaleButton> {
+class _ScaleButtonState extends State<Scale> {
   bool _isHovered = false;
   bool _isPressed = false;
 

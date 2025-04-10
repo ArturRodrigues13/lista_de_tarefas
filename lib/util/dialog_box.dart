@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:listadetarefas/util/error_message.dart';
 import 'package:listadetarefas/util/meu_botao.dart';
-import 'package:listadetarefas/util/scale_button.dart';
+import 'package:listadetarefas/util/scale.dart';
 
 class DialogBox extends StatelessWidget {
   final controller;
@@ -67,7 +67,7 @@ class DialogBox extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // Salvar
-                ScaleButton(
+                Scale(
                   child: MeuBotao(
                     text: "Salvar",
                     onPressed: () {
@@ -84,7 +84,7 @@ class DialogBox extends StatelessWidget {
                 const SizedBox(width: 64), // Separação
 
                 // Cancelar
-                ScaleButton(
+                Scale(
                   child: MeuBotao(
                     text: "Cancelar",
                     onPressed: onCanceled))
