@@ -1,9 +1,10 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:listadetarefas/util/theme_settings.dart';
 
 class MeuBotao extends StatelessWidget {
-  final String text;
+  final Widget text;
   VoidCallback onPressed;
 
   MeuBotao({
@@ -16,8 +17,8 @@ class MeuBotao extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialButton(
       onPressed: onPressed,
-      color: Theme.of(context).primaryColor,
-      child: Text(text),
+      color: ThemeSettings.primaryColor,
+      child: text,
     );
   }
 }

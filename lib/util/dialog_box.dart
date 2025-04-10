@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:listadetarefas/util/error_message.dart';
 import 'package:listadetarefas/util/meu_botao.dart';
 import 'package:listadetarefas/util/scale.dart';
+import 'package:listadetarefas/util/theme_settings.dart';
 
 class DialogBox extends StatelessWidget {
   final controller;
@@ -69,7 +70,12 @@ class DialogBox extends StatelessWidget {
                 // Salvar
                 Scale(
                   child: MeuBotao(
-                    text: "Salvar",
+                    text: Text(
+                      "Salvar",
+                      style: TextStyle(
+                        color: ThemeSettings.getSecondaryColor()
+                      ),
+                    ),
                     onPressed: () {
                       if (controller.text.isEmpty) {
                         showErrorDialog(context, "A Tarefa Precisa de um Nome!");
@@ -86,7 +92,12 @@ class DialogBox extends StatelessWidget {
                 // Cancelar
                 Scale(
                   child: MeuBotao(
-                    text: "Cancelar",
+                    text: Text(
+                      "Cancelar",
+                      style: TextStyle(
+                        color: ThemeSettings.getSecondaryColor()
+                      ),
+                    ),
                     onPressed: onCanceled
                   )
                 )

@@ -67,12 +67,12 @@ class EditTaskBox extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // Salvar
-                Scale(child: MeuBotao(text: "Salvar", onPressed: onSave)),
+                Scale(child: MeuBotao(text: Text("Salvar"), onPressed: onSave)),
 
                 const SizedBox(width: 64), // Separação
 
                 // Cancelar
-                Scale(child: MeuBotao(text: "Cancelar", onPressed: onCanceled))
+                Scale(child: MeuBotao(text: Text("Cancelar"), onPressed: onCanceled))
               ],
             )
           ],

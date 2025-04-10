@@ -2,9 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:listadetarefas/pages/settings.dart';
+import 'package:listadetarefas/pages/themes_page.dart';
 import 'package:listadetarefas/pages/home_page.dart';
 import 'package:listadetarefas/util/desktop_init.dart';
+import 'package:listadetarefas/util/theme_settings.dart';
 
 void main() async {
 
@@ -16,25 +17,39 @@ void main() async {
 
   // Abrir uma "Caixa"
   var box = await Hive.openBox("Minha Caixa");
+  await Hive.openBox("settings");
 
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final settingsBox = Hive.box('settings');
+
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primaryColor: Colors.amber
-      ),
-      home: HomePage(),
-      routes: {
-        '/homepage': (context) => HomePage(),
-        '/settings': (context) => Settings(),
-      },
-    );
+    return ValueListenableBuilder(
+		valueListenable: settingsBox.listenable(keys: ['themeColor']),
+		builder: (context, box, widget) {
+	  	return MaterialApp(
+		debugShowCheckedModeBanner: false,
+		theme: ThemeData(
+		  primarySwatch: ThemeSettings.getThemeColor(),
+		  scaffoldBackgroundColor: ThemeSettings.getThemeColor(),
+		),
+		home: HomePage(),
+		routes: {
+		  '/homepage': (context) => HomePage(),
+		  '/themes': (context) => Themes(),
+		},
+	  );
+	},
+	);
   }
 }

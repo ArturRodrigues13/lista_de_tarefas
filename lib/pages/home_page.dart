@@ -6,6 +6,7 @@ import 'package:listadetarefas/util/dialog_box.dart';
 import 'package:listadetarefas/util/edit_task_box.dart';
 import 'package:listadetarefas/util/meu_botao.dart';
 import 'package:listadetarefas/util/scale.dart';
+import 'package:listadetarefas/util/theme_settings.dart';
 import 'package:listadetarefas/util/todo_tile.dart';
 import 'package:listadetarefas/util/trash_hold.dart';
 
@@ -211,7 +212,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
 					        Scale(
                     child: MeuBotao(
-                    text: "Limpar Lixeira",
+                    text: Text("Limpar Lixeira"),
                     onPressed: () => setState(() {
                       limparLixeira();
                     })
@@ -220,7 +221,7 @@ class _HomePageState extends State<HomePage> {
 
 				          Scale(
                     child: MeuBotao(
-                    text: "Fechar",
+                    text: Text("Fechar"),
                     onPressed: () => Navigator.of(context).pop()
                     ),
                   ),
@@ -244,9 +245,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.yellow[200],
+      backgroundColor: ThemeSettings.lightColor,
       appBar: AppBar(
-        backgroundColor: Colors.amber[300],
+        backgroundColor: ThemeSettings.primaryColor,
         title: Text("LISTA DE TAREFAS"),
         titleTextStyle: TextStyle(
           color: Colors.black,
@@ -268,18 +269,18 @@ class _HomePageState extends State<HomePage> {
 
             ListTile(
               leading: Icon(Icons.home),
-              title: Text("H O M E"),
+              title: Text("I N Í C I O"),
               onTap: () {
                 Navigator.pop(context);
               }
             ),
 
             ListTile(
-              leading: Icon(Icons.settings),
-              title: Text("S E T T I N G S"),
+              leading: Icon(Icons.color_lens),
+              title: Text("T E M A S"),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.pushNamed(context,"/settings");
+                Navigator.pushNamed(context,"/themes");
               }
             )
           ],
@@ -295,12 +296,12 @@ class _HomePageState extends State<HomePage> {
 							child: FloatingActionButton(
                 heroTag: null,
                 mini: true,
-                backgroundColor: Colors.amber,
+                backgroundColor: ThemeSettings.primaryColor,
                 shape: CircleBorder(),
                 onPressed: abrirLixeira,
                 child: Icon(
                   Icons.delete,
-                  color: Colors.black,
+                  color: ThemeSettings.getSecondaryColor(),
                 ),
 						  ),
 						)
@@ -312,12 +313,12 @@ class _HomePageState extends State<HomePage> {
             child: Scale(
 							child: FloatingActionButton(
 								heroTag: null,
-								backgroundColor: Colors.amber,
+								backgroundColor: ThemeSettings.primaryColor,
 								shape: CircleBorder(),
 								onPressed: criarNovaTarefaBox,
 								child: Icon(
 									Icons.add,
-									color: Colors.black,
+									color: ThemeSettings.getSecondaryColor(),
 								),
 							),
 						)

@@ -44,7 +44,7 @@ class DescriptionBox extends StatelessWidget {
             ),
 
             MeuBotao(
-              text: "Fechar",
+              text: Text("Fechar"),
               onPressed: onCanceled
             )
           ],
