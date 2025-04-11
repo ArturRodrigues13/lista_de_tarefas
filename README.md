@@ -1,4 +1,4 @@
-# Listinha de Tarefas v1.0
+# Listinha de Tarefas v1.3.0
 
 App simples de lista de tarefas feito em Flutter
 
