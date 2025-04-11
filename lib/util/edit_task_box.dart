@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:listadetarefas/util/meu_botao.dart';
 import 'package:listadetarefas/util/scale.dart';
+import 'package:listadetarefas/util/theme_settings.dart';
 
 class EditTaskBox extends StatelessWidget {
   final controller;
@@ -32,7 +33,7 @@ class EditTaskBox extends StatelessWidget {
         ),
       ),
 
-      backgroundColor: Colors.yellow[300],
+      backgroundColor: ThemeSettings.lightColor,
       content: Container(
         width: 275,
         height: double.maxFinite,

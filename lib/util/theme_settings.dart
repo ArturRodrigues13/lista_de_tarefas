@@ -14,17 +14,17 @@ class ThemeSettings {
   ];
 
   static MaterialColor getThemeColor() {
-    final savedColorIndex = Hive.box('settings').get('themeColor', defaultValue: 0);
+    final savedColorIndex = Hive.box('Minha Caixa').get('themeColor', defaultValue: 0);
     return colorOptions[savedColorIndex][0];
   }
 
   static Color getSecondaryColor() {
-    final savedColorIndex = Hive.box('settings').get('themeColor', defaultValue: 0);
+    final savedColorIndex = Hive.box('Minha Caixa').get('themeColor', defaultValue: 0);
     return colorOptions[savedColorIndex][1];
   }
 
   static void saveThemeColor(int index) {
-    Hive.box('settings').put('themeColor', index);
+    Hive.box('Minha Caixa').put('themeColor', index);
   }
 
   // Retorna a cor primária (500)

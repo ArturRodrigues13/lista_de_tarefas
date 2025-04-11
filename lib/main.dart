@@ -17,7 +17,6 @@ void main() async {
 
   // Abrir uma "Caixa"
   var box = await Hive.openBox("Minha Caixa");
-  await Hive.openBox("settings");
 
   runApp(const MyApp());
 }
@@ -30,26 +29,26 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final settingsBox = Hive.box('settings');
+  final settingsBox = Hive.box('Minha Caixa');
 
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-		valueListenable: settingsBox.listenable(keys: ['themeColor']),
-		builder: (context, box, widget) {
-	  	return MaterialApp(
-		debugShowCheckedModeBanner: false,
-		theme: ThemeData(
-		  primarySwatch: ThemeSettings.getThemeColor(),
-		  scaffoldBackgroundColor: ThemeSettings.getThemeColor(),
-		),
-		home: HomePage(),
-		routes: {
-		  '/homepage': (context) => HomePage(),
-		  '/themes': (context) => Themes(),
-		},
+      valueListenable: settingsBox.listenable(keys: ['themeColor']),
+      builder: (context, box, widget) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            primarySwatch: ThemeSettings.getThemeColor(),
+            scaffoldBackgroundColor: ThemeSettings.getThemeColor(),
+          ),
+          home: HomePage(),
+          routes: {
+            '/homepage': (context) => HomePage(),
+            '/themes': (context) => Themes(),
+          },
+        );
+      },
 	  );
-	},
-	);
   }
 }

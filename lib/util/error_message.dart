@@ -1,5 +1,6 @@
 // lib/util/error_utils.dart
 import 'package:flutter/material.dart';
+import 'package:listadetarefas/util/theme_settings.dart';
 
 void showErrorDialog(BuildContext context, String message) {
   final overlay = Overlay.of(context);
@@ -17,13 +18,13 @@ void showErrorDialog(BuildContext context, String message) {
               color: Colors.black38,
               width: 2
             ),
-            color: Colors.red[400],
+            color: ThemeSettings.darkColor,
             borderRadius: BorderRadius.circular(8),
           ),
           child: Text(
             message,
-            style: const TextStyle(
-              color: Colors.white,
+            style: TextStyle(
+              color: ThemeSettings.getSecondaryColor(),
               fontSize: 16,
             ),
             textAlign: TextAlign.center,
@@ -35,7 +36,7 @@ void showErrorDialog(BuildContext context, String message) {
 
   overlay.insert(overlayEntry);
 
-  Future.delayed(const Duration(seconds: 2), () {
+  Future.delayed(const Duration(seconds: 1), () {
     overlayEntry.remove();
   });
 }

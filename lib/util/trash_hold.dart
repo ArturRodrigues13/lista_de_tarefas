@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:listadetarefas/util/theme_settings.dart';
 
 // ignore: must_be_immutable
 class TrashHold extends StatelessWidget {
@@ -15,7 +16,7 @@ class TrashHold extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.only(left: 15.0,right: 15.0,top: 15.0, bottom: 15),
         decoration: BoxDecoration(
-          color: Colors.yellow[500],
+          color: ThemeSettings.primaryColor,
           borderRadius: BorderRadius.circular(12)
         ),
         child: Row(
@@ -27,7 +28,7 @@ class TrashHold extends StatelessWidget {
                 itemLixeira,
                 style: TextStyle(
                   fontSize: 14,
-                  color: Colors.black87
+                  color: ThemeSettings.getSecondaryColor()
                 ),
                 softWrap: true,
                 overflow: TextOverflow.visible,
@@ -43,7 +44,7 @@ class TrashHold extends StatelessWidget {
               onPressed: () => recuperarTarefa?.call(context),
               child: Icon(
                 Icons.restore_from_trash,
-                color: Colors.black,
+                color: ThemeSettings.getSecondaryColor(),
               ),
             ),
           ],

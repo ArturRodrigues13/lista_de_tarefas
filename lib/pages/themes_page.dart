@@ -44,13 +44,14 @@ class Themes extends StatelessWidget {
       ),
 
       drawer: Drawer(
-        backgroundColor: Colors.white,
+        backgroundColor: ThemeSettings.lightColor,
         child: Column(
           children: [
             DrawerHeader(
               child: Icon(
                 Icons.edit,
-                size: 48
+                size: 48,
+                color: Colors.black,
               )
             ),
 

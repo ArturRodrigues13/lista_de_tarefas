@@ -126,7 +126,6 @@ class _HomePageState extends State<HomePage> {
     Navigator.of(context).pop();
     db.atualizarDataBase();
     }
-
   }
 
   void editarTarefaBox (int index) {
@@ -168,7 +167,7 @@ class _HomePageState extends State<HomePage> {
     db.atualizarDataBase();
 
     if (db.TarefasLixeira.isEmpty){
-       Navigator.of(context).pop();
+      Navigator.of(context).pop();
     }
   }
 
@@ -179,15 +178,15 @@ class _HomePageState extends State<HomePage> {
       return StatefulBuilder(
         builder: (context, setState) {
           return AlertDialog(
-            backgroundColor: const Color.fromARGB(255, 248, 230, 156),
-            title: Center(
-              child: const Text(
-                style: TextStyle(
-                  fontWeight: FontWeight.bold
-                ),
-              "LIXEIRA"
-              )
+            backgroundColor: ThemeSettings.lightColor,
+            title: const Text(
+			        "LIXEIRA",
+			        textAlign: TextAlign.center,
+              style: TextStyle(
+            	fontWeight: FontWeight.bold
+        	    ),
             ),
+
             content: SizedBox(
               width: double.maxFinite,
               child: ListView.builder(
@@ -196,9 +195,9 @@ class _HomePageState extends State<HomePage> {
                 itemBuilder: (context, index) {
                   return TrashHold(
                     recuperarTarefa: (context) {
-                    setState(() {
+                      setState(() {
                       recuperarTarefa(index); // Atualiza o estado local
-                    });
+					            });
                     },
                     itemLixeira: db.TarefasLixeira[index][0],
                   );
@@ -206,23 +205,34 @@ class _HomePageState extends State<HomePage> {
 			        ),
 			      ),
 
-				    actions: [
+			      actions: [
               Row(
 				        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-					        Scale(
+
+				          Scale(
                     child: MeuBotao(
-                    text: Text("Limpar Lixeira"),
-                    onPressed: () => setState(() {
-                      limparLixeira();
-                    })
+                      text: Text(
+                        "Limpar Lixeira",
+                        style: TextStyle(
+                          color: ThemeSettings.getSecondaryColor()
+                        ),
+                      ),
+                      onPressed: () => setState(() {
+                        limparLixeira();
+                      })
                     ),
                   ),
 
 				          Scale(
                     child: MeuBotao(
-                    text: Text("Fechar"),
-                    onPressed: () => Navigator.of(context).pop()
+                      text: Text(
+                        "Fechar",
+                        style: TextStyle(
+                          color: ThemeSettings.getSecondaryColor()
+                        ),
+                      ),
+                      onPressed: () => Navigator.of(context).pop()
                     ),
                   ),
                 ],
@@ -236,10 +246,10 @@ class _HomePageState extends State<HomePage> {
 }
 
   void limparLixeira() {
-	setState(() {
-	db.TarefasLixeira.clear();
-	db.atualizarDataBase();
-	});
+	  setState(() {
+      db.TarefasLixeira.clear();
+      db.atualizarDataBase();
+	  });
   }
 
   @override
@@ -257,13 +267,14 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
       ),
       drawer: Drawer(
-        backgroundColor: Colors.white,
+        backgroundColor: ThemeSettings.lightColor,
         child: Column(
           children: [
             DrawerHeader(
               child: Icon(
                 Icons.edit,
-                size: 48
+                size: 48,
+                color: Colors.black,
               )
             ),
 
@@ -289,11 +300,12 @@ class _HomePageState extends State<HomePage> {
 
       floatingActionButton: Stack(
 		    children: [
-			    Positioned(
+
+		      Positioned(
             right: 17,
             bottom: 80,
 		        child: Scale(
-							child: FloatingActionButton(
+			        child: FloatingActionButton(
                 heroTag: null,
                 mini: true,
                 backgroundColor: ThemeSettings.primaryColor,
@@ -303,25 +315,25 @@ class _HomePageState extends State<HomePage> {
                   Icons.delete,
                   color: ThemeSettings.getSecondaryColor(),
                 ),
-						  ),
-						)
+			        ),
+	  	      )
           ),
 
-			    Positioned(
+		      Positioned(
             right: 10,
             bottom: 10,
             child: Scale(
-							child: FloatingActionButton(
-								heroTag: null,
-								backgroundColor: ThemeSettings.primaryColor,
-								shape: CircleBorder(),
-								onPressed: criarNovaTarefaBox,
-								child: Icon(
-									Icons.add,
-									color: ThemeSettings.getSecondaryColor(),
-								),
-							),
-						)
+              child: FloatingActionButton(
+                heroTag: null,
+                backgroundColor: ThemeSettings.primaryColor,
+                shape: CircleBorder(),
+                onPressed: criarNovaTarefaBox,
+                child: Icon(
+                  Icons.add,
+                  color: ThemeSettings.getSecondaryColor(),
+                ),
+			        ),
+			      )
 		      ),
 		    ],
 	    ),

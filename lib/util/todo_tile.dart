@@ -1,6 +1,7 @@
 // ignore_for_file: sort_child_properties_last, must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:listadetarefas/util/theme_settings.dart';
 
 class ToDoTile extends StatelessWidget {
 
@@ -37,7 +38,7 @@ class ToDoTile extends StatelessWidget {
           },
           background: Container(
             decoration: BoxDecoration(
-              color: Colors.red.shade300,
+              color: ThemeSettings.darkColor,
               borderRadius: BorderRadius.circular(12.0)
             ),
             alignment: Alignment.centerRight,
@@ -50,7 +51,7 @@ class ToDoTile extends StatelessWidget {
 
           child: InkWell(
             borderRadius: BorderRadius.circular(12),
-            hoverColor: Colors.amber,
+            hoverColor: ThemeSettings.darkColor,
             onTap: () => exibirDescricao!(context),
             child: Padding(
               padding: const EdgeInsets.all(3.0),
@@ -72,7 +73,8 @@ class ToDoTile extends StatelessWidget {
                         child: Text(
                           nomeDaTarefa,
                           style: TextStyle(
-                            fontSize: 14,
+							color: ThemeSettings.getSecondaryColor(),
+                            fontSize: 16,
                             decoration: tarefaFeita ? TextDecoration.lineThrough : TextDecoration.none
                           ),
                           softWrap: true,
@@ -84,13 +86,13 @@ class ToDoTile extends StatelessWidget {
                         onPressed: () => editarFuncao!(context),
                         icon: Icon(
                           Icons.edit,
-                          color: Colors.black,
+                          color: ThemeSettings.getSecondaryColor(),
                         ),
                       ),
                     ],
                   ),
                   decoration: BoxDecoration(
-                    color: Colors.yellow[500],
+                    color: ThemeSettings.primaryColor,
                     borderRadius: BorderRadius.circular(12)
                   ),
                 ),

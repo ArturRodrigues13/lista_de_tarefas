@@ -32,7 +32,7 @@ class DialogBox extends StatelessWidget {
         ),
       ),
 
-      backgroundColor: Colors.yellow[300],
+      backgroundColor: ThemeSettings.lightColor,
       content: Container(
         width: 275,
         height: double.maxFinite,
